@@ -12,8 +12,8 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "haggaie/rdma-experiment"
-
+  config.vm.box = "ubuntu/bionic64"
+  #config.vm.box = "haggaie/rdma-experiment"
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -49,16 +49,13 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider "virtualbox" do |vb|
+  # config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
-     # work-around issue in box generation that adds serial log file pointing to the build path
-     # https://git.launchpad.net/livecd-rootfs/tree/live-build/ubuntu-cpc/hooks/042-vagrant.binary?h=ubuntu/bionic
-     vb.customize [ "modifyvm", :id, "--uartmode1", "file", File.join(Dir.pwd, "console.log") ]
-  end
+  # end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -70,4 +67,14 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.ssh.insert_key=false
+  config.vm.provision "shell", path: "provision/setup-vm.sh"
+  config.vm.box_download_insecure = true
+  # Two VMs: client & server
+  config.vm.define "client" do |client|
+    client.vm.network "private_network", ip: "10.10.10.10"
+  end
+  config.vm.define "server" do |server|
+    server.vm.network "private_network", ip: "10.10.10.11"
+  end
 end
