@@ -21,15 +21,7 @@ RDMA functionality should be available on the VM's Ethernet interface, which vag
 
      code {white-space: pre;}  
 
-RDMA Communications Lab
-=======================
 
-In order to allow servers to work at increasing communication rates, modern communication cards enable bypass of the operating system core and a direct interface between user processes and hardware. In addition, some communication tasks are accelerated on the network card to reduce the load on the main processor. In the experiment we will learn how these mechanisms work, and measure their impact on the performance of communication applications. In order to learn how to develop RDMA applications in C language, during the experiment a system was built that shares server memory through RDMA to end clients.
-
-Location
---------
-
-The experiment is being conducted in Room 375 in the hallway between Fishbach and Meyer.
 
 Table of Contents
 -----------------
