@@ -5,14 +5,29 @@ You will need the following tools:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) - a desktop virtualization system.
 * [Vagrant](https://www.vagrantup.com/downloads.html) - a scripted tool for managing virtual machines.
 
+```
+sudo apt-get install virtualbox
+sudo wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
+sudo dpkg -i vagrant_2.2.2_x86_64.deb
+```
+
 To create the virtual machines use:
 
+    export VAGRANT_HOME=/some_other_location/ ( Optional)
     vagrant up
 
-This will create a virtual machine with the SoftRoCE RDMA driver enabled on its virtual network interface. To access
+This will create a two virtual machine with the SoftRoCE RDMA driver enabled on its virtual network interface. To access
 the machine, use:
 
-    vagrant ssh
+    $ vagrant status
+    Current machine states:
+
+    client                    running (virtualbox)
+    server                    running (virtualbox)
+    
+    $vagrant ssh client
+    $vagrant ssh server
+    
 
 The repository files should be available inside the VM under the `/vagrant` directory.
 
